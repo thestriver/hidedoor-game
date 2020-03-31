@@ -16,8 +16,28 @@ let openDoor1;
 let openDoor2;
 let openDoor3;
 
+let closedDoorPath = "https://s3.amazonaws.com/codecademy-content/projects/chore-door/images/closed_door.svg";
 
-let randomChoreDoorgenerator = () => {
+let startButton = document.getElementById('start');
+
+let isClicked = (door) => {
+  if(door.src === closedDoorPath){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+let playDoor = () => {
+  numClosedDoors--;
+  if(numClosedDoors === 0){
+    gameOver('win');
+  }
+  
+}
+
+let randomChoreDoorGenerator = () => {
   
   let choreDoor = Math.floor(Math.random() * numClosedDoors);
 
@@ -42,17 +62,35 @@ let randomChoreDoorgenerator = () => {
 
 }
 
+
 doorImage1.onclick = () => {
-  doorImage1.src = openDoor1;
+  if(!isClicked(doorImage1)){
+    doorImage1.src = openDoor1;
+  }
+  
+  playDoor();
 }
 
 doorImage2.onclick = () => {
-  doorImage2.src = openDoor2;
+  if(!isClicked(doorImage2)){
+    doorImage2.src = openDoor2;
+  }
+  playDoor();
 }
 
 doorImage3.onclick = () => {
-  doorImage3.src = openDoor3;
+  if(!isClicked(doorImage3)){
+    doorImage3.src = openDoor3;
+  }
+  playDoor();
 }
+
+let gameOver = (status) => {
+  if(status === 'win'){
+    startButton.innerHTML = 'You win! Play again?';
+  }
+}
+
 
 randomChoreDoorGenerator();
 
