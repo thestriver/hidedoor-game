@@ -20,8 +20,18 @@ let closedDoorPath = "https://s3.amazonaws.com/codecademy-content/projects/chore
 
 let startButton = document.getElementById('start');
 
+
+let isBot = (door) => {
+  if(door.src == botDoorPath){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 let isClicked = (door) => {
-  if(door.src === closedDoorPath){
+  if(door.src == closedDoorPath){
     return false;
   }
   else{
@@ -29,10 +39,13 @@ let isClicked = (door) => {
   }
 }
 
-let playDoor = () => {
+let playDoor = (door) => {
   numClosedDoors--;
   if(numClosedDoors === 0){
     gameOver('win');
+  }
+  else if(isBot(door)){
+    gameOver();
   }
   
 }
@@ -68,26 +81,29 @@ doorImage1.onclick = () => {
     doorImage1.src = openDoor1;
   }
   
-  playDoor();
+  playDoor(doorImage1);
 }
 
 doorImage2.onclick = () => {
   if(!isClicked(doorImage2)){
     doorImage2.src = openDoor2;
   }
-  playDoor();
+  playDoor(doorImage2);
 }
 
 doorImage3.onclick = () => {
   if(!isClicked(doorImage3)){
     doorImage3.src = openDoor3;
   }
-  playDoor();
+  playDoor(doorImage3);
 }
 
 let gameOver = (status) => {
   if(status === 'win'){
     startButton.innerHTML = 'You win! Play again?';
+  }
+  else {
+    startButton.innerHTML = 'Game over! Play again?'
   }
 }
 
