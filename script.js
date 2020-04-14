@@ -20,6 +20,8 @@ let closedDoorPath = "https://s3.amazonaws.com/codecademy-content/projects/chore
 
 let startButton = document.getElementById('start');
 
+let currentlyPlaying = true;
+
 
 let isBot = (door) => {
   if(door.src == botDoorPath){
@@ -77,7 +79,7 @@ let randomChoreDoorGenerator = () => {
 
 
 doorImage1.onclick = () => {
-  if(!isClicked(doorImage1)){
+  if(currentlyPlaying && !isClicked(doorImage1)){
     doorImage1.src = openDoor1;
   }
   
@@ -85,17 +87,38 @@ doorImage1.onclick = () => {
 }
 
 doorImage2.onclick = () => {
-  if(!isClicked(doorImage2)){
+  if(currentlyPlaying && !isClicked(doorImage2)){
     doorImage2.src = openDoor2;
   }
   playDoor(doorImage2);
 }
 
+//checks if door clicked is close and currently playing
+
 doorImage3.onclick = () => {
-  if(!isClicked(doorImage3)){
+  if(currentlyPlaying && !isClicked(doorImage3)){
     doorImage3.src = openDoor3;
   }
   playDoor(doorImage3);
+}
+
+//click handler for start button to restart game
+startButton.onclick = () => {
+  //prevents restarting mid-game
+  if(!currentlyPlaying){
+    startRound();
+  }
+  
+}
+
+let startRound = () => {
+  doorImage1.src = closedDoorPath;
+  doorImage2.src = closedDoorPath;
+  doorImage3.src = closedDoorPath;
+  startButton.innerHTML = 'Good luck!';
+  currentlyPlaying = true;
+  numClosedDoors = 3;
+  randomChoreDoorGenerator(); 
 }
 
 let gameOver = (status) => {
@@ -105,10 +128,11 @@ let gameOver = (status) => {
   else {
     startButton.innerHTML = 'Game over! Play again?'
   }
+  currentlyPlaying = false;
 }
 
 
-randomChoreDoorGenerator();
+startRound();
 
 
 
