@@ -20,6 +20,7 @@ let closedDoorPath = "https://s3.amazonaws.com/codecademy-content/projects/chore
 
 let startButton = document.getElementById('start');
 
+//necessary to avoid using refresh to bypass fail
 let currentlyPlaying = true;
 
 
