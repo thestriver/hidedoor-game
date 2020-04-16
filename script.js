@@ -111,7 +111,7 @@ startButton.onclick = () => {
   }
   
 }
-//help restart the game while resetting the values to their original values..
+//help restart the game while resetting the listed values to their original values..
 let startRound = () => {
   doorImage1.src = closedDoorPath;
   doorImage2.src = closedDoorPath;
@@ -122,6 +122,7 @@ let startRound = () => {
   randomChoreDoorGenerator(); 
 }
 
+//recieves win or lose and changes the button text . Currently playing is negative to prevent refresh 
 let gameOver = (status) => {
   if(status === 'win'){
     startButton.innerHTML = 'You win! Play again?';
